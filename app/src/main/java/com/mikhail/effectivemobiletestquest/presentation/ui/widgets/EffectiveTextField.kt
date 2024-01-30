@@ -2,9 +2,12 @@ package com.mikhail.effectivemobiletestquest.presentation.ui.widgets
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.defaults.EffectiveTextFieldDefaults
 
@@ -15,7 +18,10 @@ fun EffectiveTextField(
     onValueChange: (String) -> Unit = {},
     singleLine: Boolean = false,
     charsLimit: Int = Int.MAX_VALUE,
-    placeholder: @Composable (() -> Unit)? = null
+    placeholder: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+    visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     TextField(
         modifier = modifier.fillMaxWidth(),
@@ -28,6 +34,9 @@ fun EffectiveTextField(
         singleLine = singleLine,
         placeholder = placeholder,
         shape = RoundedCornerShape(8.dp),
-        colors = EffectiveTextFieldDefaults.textFieldColors()
+        trailingIcon = trailingIcon,
+        colors = EffectiveTextFieldDefaults.textFieldColors(),
+        keyboardOptions = keyboardOptions,
+        visualTransformation = visualTransformation
     )
 }
