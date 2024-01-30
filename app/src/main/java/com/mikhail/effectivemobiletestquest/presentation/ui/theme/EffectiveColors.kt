@@ -19,7 +19,7 @@ fun ProvideEffectiveColors(): EffectiveColors {
     return EffectiveColors(
         white = Color(0xFFFFFFFF),
         grey = Color(0xFFA0A1A3),
-        lightGrey = Color(0xFFDEDEDE),
+        lightGrey = Color(0xFFF8F8F8),
         darkGrey = Color(0xFF3E3E3E),
         pink = Color(0xFFD62F89),
         lightPink = Color(0xFFFF8AC9),

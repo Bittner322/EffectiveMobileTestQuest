@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">EffectiveMobileTestQuest</string>
+
+    <!-- Sign In screen -->
+    <string name="sign_in_topbar_title">Вход</string>
+    <string name="sign_in_name_placeholder">Имя</string>
+    <string name="sign_in_surname_placeholder">Фамилия</string>
+    <string name="sign_in_phone_number_placeholder">Номер телефона</string>
+    <string name="sign_in_button_text">Войти</string>
+    <string name="sign_in_disclaimer">Нажимая кнопку “Войти”, Вы принимаете</string>
+    <string name="sign_in_disclaimer_underlined">условия программы лояльности</string>
 </resources>

@@ -7,6 +7,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import com.mikhail.effectivemobiletestquest.R
 
@@ -39,68 +40,69 @@ fun ProvideEffectiveTypography(): EffectiveTypography {
     return EffectiveTypography(
         largeTitle1 = TextStyle(
             fontWeight = FontWeight.Medium,
-            fontSize = 42.sp,
+            fontSize = 20.sp,
             fontFamily = sfMediumFontFamily
         ),
         title1 = TextStyle(
             fontWeight = FontWeight.Medium,
-            fontSize = 32.sp,
+            fontSize = 16.sp,
             fontFamily = sfMediumFontFamily
         ),
         title2 = TextStyle(
             fontWeight = FontWeight.Normal,
-            fontSize = 22.sp,
+            fontSize = 14.sp,
             fontFamily = sfMediumFontFamily
         ),
         title3 = TextStyle(
             fontWeight = FontWeight.Medium,
-            fontSize = 20.sp,
+            fontSize = 12.sp,
             fontFamily = sfMediumFontFamily
         ),
         title4 = TextStyle(
             fontWeight = FontWeight.Medium,
-            fontSize = 18.sp,
+            fontSize = 14.sp,
             fontFamily = sfRegularFontFamily
         ),
         text1 = TextStyle(
             fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
+            fontSize = 12.sp,
             fontFamily = sfRegularFontFamily
         ),
         caption1 = TextStyle(
             fontWeight = FontWeight.Medium,
-            fontSize = 14.sp,
+            fontSize = 10.sp,
             fontFamily = sfRegularFontFamily
         ),
         buttonText1 = TextStyle(
             fontWeight = FontWeight.Medium,
-            fontSize = 13.sp,
+            fontSize = 12.sp,
             fontFamily = sfMediumFontFamily
         ),
         buttonText2 = TextStyle(
             fontWeight = FontWeight.Normal,
-            fontSize = 12.sp,
+            fontSize = 14.sp,
             fontFamily = sfMediumFontFamily
         ),
         elementText = TextStyle(
             fontWeight = FontWeight.Medium,
-            fontSize = 12.sp,
+            fontSize = 9.sp,
             fontFamily = sfRegularFontFamily
         ),
         priceText = TextStyle(
             fontWeight = FontWeight.Medium,
-            fontSize = 11.sp,
+            fontSize = 24.sp,
             fontFamily = sfMediumFontFamily
         ),
         placeholderText = TextStyle(
             fontWeight = FontWeight.Medium,
-            fontSize = 10.sp,
+            fontSize = 16.sp,
             fontFamily = sfRegularFontFamily
         ),
         linkText = TextStyle(
             fontWeight = FontWeight.Medium,
             fontSize = 10.sp,
-            fontFamily = sfRegularFontFamily
+            fontFamily = sfRegularFontFamily,
+            textDecoration = TextDecoration.Underline
         )
     )
 }
