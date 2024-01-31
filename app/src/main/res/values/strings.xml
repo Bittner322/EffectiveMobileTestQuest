@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">EffectiveMobileTestQuest</string>
 
+    <!-- Bottom Nav -->
+    <string name="bottom_nav_main">Главная</string>
+    <string name="bottom_nav_catalog">Каталог</string>
+    <string name="bottom_nav_cart">Корзина</string>
+    <string name="bottom_nav_sales">Акции</string>
+    <string name="bottom_nav_profile">Профиль</string>
+
     <!-- Sign In screen -->
     <string name="sign_in_topbar_title">Вход</string>
     <string name="sign_in_name_placeholder">Имя</string>
@@ -9,4 +16,11 @@
     <string name="sign_in_button_text">Войти</string>
     <string name="sign_in_disclaimer">Нажимая кнопку “Войти”, Вы принимаете</string>
     <string name="sign_in_disclaimer_underlined">условия программы лояльности</string>
+
+    <!-- Catalog screen -->
+    <string name="catalog_topbar_title">Каталог</string>
+    <string name="catalog_sort_by_popular">По популярности</string>
+    <string name="catalog_sort_by_price_up">По возрастанию</string>
+    <string name="catalog_sort_by_price_down">По убыванию</string>
+
 </resources>

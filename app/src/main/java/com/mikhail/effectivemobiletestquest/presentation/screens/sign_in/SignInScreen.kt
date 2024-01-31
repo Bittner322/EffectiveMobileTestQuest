@@ -27,13 +27,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikhail.effectivemobiletestquest.R
-import com.mikhail.effectivemobiletestquest.presentation.screens.sign_in.NumberDefaults.INPUT_LENGTH
-import com.mikhail.effectivemobiletestquest.presentation.screens.sign_in.NumberDefaults.MASK
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveCenterAlignedTopBar
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectivePlaceholder
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveSingleLineButton
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveTextField
+
+private const val Mask = "+ # ###-###-##-##"
+private const val PhoneLength = 11
 
 private const val CatalogScreenRoute = "catalog"
 
@@ -132,7 +133,7 @@ fun SignInScreen(
                         text = stringResource(R.string.sign_in_phone_number_placeholder)
                     )
                 },
-                charsLimit = INPUT_LENGTH,
+                charsLimit = PhoneLength,
                 trailingIcon = {
                     if (uiState.phoneNumber.isNotEmpty()) {
                         Icon(
@@ -147,7 +148,7 @@ fun SignInScreen(
                     }
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                visualTransformation = MaskVisualTransformation(mask = MASK)
+                visualTransformation = MaskVisualTransformation(mask = Mask)
             )
         }
 
@@ -175,9 +176,4 @@ fun SignInScreen(
             color = EffectiveTheme.color.grey
         )
     }
-}
-
-object NumberDefaults {
-    const val MASK = "+ # ### ### ## ##"
-    const val INPUT_LENGTH = 11
 }

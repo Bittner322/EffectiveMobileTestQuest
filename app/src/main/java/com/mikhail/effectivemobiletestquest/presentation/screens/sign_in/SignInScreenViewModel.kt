@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 private const val PhoneNumberLength = 11
+private val OnlyCyrillicLettersRegex = "[а-яёА-ЯЁ]+".toRegex()
 
 @HiltViewModel
 class SignInScreenViewModel @Inject constructor(
@@ -27,10 +28,16 @@ class SignInScreenViewModel @Inject constructor(
             it.copy(name = name)
         }
         if (_uiState.value.name.isNotEmpty() &&
+            _uiState.value.name.matches(OnlyCyrillicLettersRegex) &&
             _uiState.value.surname.isNotEmpty() &&
+            _uiState.value.surname.matches(OnlyCyrillicLettersRegex) &&
             _uiState.value.phoneNumber.length == PhoneNumberLength) {
             _uiState.update {
                 it.copy(isError = false)
+            }
+        } else {
+            _uiState.update {
+                it.copy(isError = true)
             }
         }
     }
@@ -40,10 +47,16 @@ class SignInScreenViewModel @Inject constructor(
             it.copy(surname = surname)
         }
         if (_uiState.value.name.isNotEmpty() &&
+            _uiState.value.name.matches(OnlyCyrillicLettersRegex) &&
             _uiState.value.surname.isNotEmpty() &&
+            _uiState.value.surname.matches(OnlyCyrillicLettersRegex) &&
             _uiState.value.phoneNumber.length == PhoneNumberLength) {
             _uiState.update {
                 it.copy(isError = false)
+            }
+        } else {
+            _uiState.update {
+                it.copy(isError = true)
             }
         }
     }
@@ -55,10 +68,16 @@ class SignInScreenViewModel @Inject constructor(
             }
         }
         if (_uiState.value.name.isNotEmpty() &&
+            _uiState.value.name.matches(OnlyCyrillicLettersRegex) &&
             _uiState.value.surname.isNotEmpty() &&
+            _uiState.value.surname.matches(OnlyCyrillicLettersRegex) &&
             _uiState.value.phoneNumber.length == PhoneNumberLength) {
             _uiState.update {
                 it.copy(isError = false)
+            }
+        } else {
+            _uiState.update {
+                it.copy(isError = true)
             }
         }
     }
