@@ -22,5 +22,11 @@
     <string name="catalog_sort_by_popular">По популярности</string>
     <string name="catalog_sort_by_price_up">По возрастанию</string>
     <string name="catalog_sort_by_price_down">По убыванию</string>
+    <string name="catalog_filters">Фильтры</string>
+    <string name="catalog_all_tag">Смотреть все</string>
+    <string name="catalog_face_tag">Лицо</string>
+    <string name="catalog_body_tag">Тело</string>
+    <string name="catalog_tan_tag">Загар</string>
+    <string name="catalog_masks_tag">Маски</string>
 
 </resources>

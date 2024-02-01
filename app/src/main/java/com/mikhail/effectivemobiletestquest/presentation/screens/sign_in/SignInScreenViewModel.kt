@@ -2,12 +2,15 @@ package com.mikhail.effectivemobiletestquest.presentation.screens.sign_in
 
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mikhail.effectivemobiletestquest.data.repositories.RegistrationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val PhoneNumberLength = 11
@@ -15,7 +18,7 @@ private val OnlyCyrillicLettersRegex = "[а-яёА-ЯЁ]+".toRegex()
 
 @HiltViewModel
 class SignInScreenViewModel @Inject constructor(
-
+    private val registrationRepository: RegistrationRepository
 ): ViewModel() {
     private val _uiAction = Channel<SignInAction>()
     val uiAction = _uiAction.receiveAsFlow()
@@ -83,7 +86,14 @@ class SignInScreenViewModel @Inject constructor(
     }
 
     fun onSignInClick() {
-        _uiAction.trySend(SignInAction.NavToMainScreen)
+        viewModelScope.launch {
+            registrationRepository.register(
+                name = _uiState.value.name,
+                surname = _uiState.value.surname,
+                phoneNumber = _uiState.value.phoneNumber
+            )
+            _uiAction.send(SignInAction.NavToMainScreen)
+        }
     }
 }
 

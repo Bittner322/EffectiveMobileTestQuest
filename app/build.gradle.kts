@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("com.google.devtools.ksp") version "1.9.22-1.0.16"
 }
 
 android {
@@ -75,6 +76,11 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
     kapt(libs.hilt.compiler)
+    implementation(libs.room.ktx)
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    ksp(libs.room.compiler)
+    implementation(libs.ksp)
     debugImplementation(libs.compose.tooling.preview)
     debugImplementation(libs.compose.test.manifest)
 }
