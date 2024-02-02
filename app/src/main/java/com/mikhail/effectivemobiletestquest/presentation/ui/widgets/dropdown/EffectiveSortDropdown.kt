@@ -26,10 +26,10 @@ import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 @Composable
 fun EffectiveSortDropdown(
     onChosenSortTypeClick: (SortType) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    chosenSortType: SortType = SortType.BY_POPULARITY
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val chosenSortType: SortType by remember { mutableStateOf(SortType.BY_POPULARITY) }
 
     Box(
         modifier = modifier
@@ -69,6 +69,7 @@ fun EffectiveSortDropdown(
                 },
                 onClick = {
                     onChosenSortTypeClick(SortType.BY_POPULARITY)
+                    expanded = false
                 }
             )
             DropdownMenuItem(
@@ -80,6 +81,7 @@ fun EffectiveSortDropdown(
                 },
                 onClick = {
                     onChosenSortTypeClick(SortType.BY_PRICE_DOWN)
+                    expanded = false
                 }
             )
             DropdownMenuItem(
@@ -91,6 +93,7 @@ fun EffectiveSortDropdown(
                 },
                 onClick = {
                     onChosenSortTypeClick(SortType.BY_PRICE_UP)
+                    expanded = false
                 }
             )
         }

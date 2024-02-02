@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
@@ -61,7 +61,7 @@ fun SignInScreen(
             .background(
                 color = EffectiveTheme.color.white
             )
-            .navigationBarsPadding(),
+            .systemBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         EffectiveCenterAlignedTopBar(
