@@ -4,6 +4,10 @@ import com.mikhail.effectivemobiletestquest.data.database.AppDatabase
 import com.mikhail.effectivemobiletestquest.data.database.models.ProductInfoModel
 import com.mikhail.effectivemobiletestquest.data.database.models.ProductModel
 import com.mikhail.effectivemobiletestquest.data.network.NetworkService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ProductsRepository @Inject constructor(
@@ -38,11 +42,32 @@ class ProductsRepository @Inject constructor(
         return products
     }
 
-    suspend fun loadAllProductsIntoDatabase(
-        products: List<ProductModel>
-    ): Result<Unit> {
+    suspend fun loadAllProductsIntoDatabase(): Result<Unit> {
         return runCatching {
             database.productsDao().insertAll(mapProducts())
+        }
+    }
+
+    fun getAllProductsFromDatabase(): Flow<List<ProductModel>> {
+        return database.productsDao().getProductsData()
+            .flowOn(Dispatchers.IO)
+    }
+
+    suspend fun setProductFavorite(productModel: ProductModel) {
+        withContext(Dispatchers.IO) {
+            database.productsDao().setProductFavorite(productModel.id)
+        }
+    }
+
+    suspend fun setProductNonFavorite(productModel: ProductModel) {
+        withContext(Dispatchers.IO) {
+            database.productsDao().setProductNonFavorite(productModel.id)
+        }
+    }
+
+    suspend fun clearProducts() {
+        withContext(Dispatchers.IO) {
+            database.productsDao().clearProductsData()
         }
     }
 }

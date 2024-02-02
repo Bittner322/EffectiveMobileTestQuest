@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikhail.effectivemobiletestquest.R
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
@@ -48,7 +49,8 @@ fun EffectiveSortDropdown(
             Text(
                 modifier = Modifier.padding(horizontal = 4.dp),
                 text = stringResource(chosenSortType.sortType),
-                style = EffectiveTheme.typography.title4
+                style = EffectiveTheme.typography.title4,
+                overflow = TextOverflow.Ellipsis
             )
             Icon(
                 painter = painterResource(R.drawable.ic_arrow_down),
@@ -64,7 +66,8 @@ fun EffectiveSortDropdown(
                 text = {
                     Text(
                         text = stringResource(R.string.catalog_sort_by_popular),
-                        style = EffectiveTheme.typography.title4
+                        style = EffectiveTheme.typography.title4,
+                        overflow = TextOverflow.Ellipsis
                     )
                 },
                 onClick = {
@@ -76,7 +79,8 @@ fun EffectiveSortDropdown(
                 text = {
                     Text(
                         text = stringResource(R.string.catalog_sort_by_price_down),
-                        style = EffectiveTheme.typography.title4
+                        style = EffectiveTheme.typography.title4,
+                        overflow = TextOverflow.Ellipsis
                     )
                 },
                 onClick = {
@@ -88,7 +92,8 @@ fun EffectiveSortDropdown(
                 text = {
                     Text(
                         text = stringResource(R.string.catalog_sort_by_price_up),
-                        style = EffectiveTheme.typography.title4
+                        style = EffectiveTheme.typography.title4,
+                        overflow = TextOverflow.Ellipsis
                     )
                 },
                 onClick = {

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -22,12 +23,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikhail.effectivemobiletestquest.R
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveCenterAlignedTopBar
+import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.ProductCard
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.dropdown.EffectiveSortDropdown
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.EffectiveCatalogTag
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.Tag
@@ -38,6 +41,7 @@ fun CatalogScreen(
     viewModel: CatalogScreenViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val products by viewModel.productsFlow.collectAsState()
 
     Column(
         modifier = Modifier
@@ -77,7 +81,8 @@ fun CatalogScreen(
                 )
                 Text(
                     text = stringResource(R.string.catalog_filters),
-                    style = EffectiveTheme.typography.title4
+                    style = EffectiveTheme.typography.title4,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }
@@ -90,16 +95,28 @@ fun CatalogScreen(
             items(Tag.entries.toTypedArray()) { tag ->
                 EffectiveCatalogTag(
                     tag = tag,
-                    onTagClick = viewModel::onActiveTagChange,
+                    onTagClick = { viewModel.onActiveTagChange(tag) },
                     onDisableTagClick = viewModel::onDisableTagClick,
                     isActive = uiState.activeTag == tag
                 )
             }
         }
         
-        LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-            item {
-
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            contentPadding = PaddingValues(16.dp)
+        ) {
+            items(products) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    ProductCard(
+                        product = it,
+                        onFavoriteClick = { viewModel.onProductFavoriteClick(it) },
+                        onNonFavoriteClick = { viewModel.onProductNonFavoriteClick(it) }
+                    )
+                }
             }
         }
     }

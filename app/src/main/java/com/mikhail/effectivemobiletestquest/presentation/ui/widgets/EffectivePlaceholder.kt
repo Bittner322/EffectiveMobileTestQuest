@@ -3,6 +3,7 @@ package com.mikhail.effectivemobiletestquest.presentation.ui.widgets
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 
 @Composable
@@ -14,6 +15,7 @@ fun EffectivePlaceholder(
         modifier = modifier,
         text = text,
         color = EffectiveTheme.color.grey,
-        style = EffectiveTheme.typography.placeholderText
+        style = EffectiveTheme.typography.placeholderText,
+        overflow = TextOverflow.Ellipsis
     )
 }

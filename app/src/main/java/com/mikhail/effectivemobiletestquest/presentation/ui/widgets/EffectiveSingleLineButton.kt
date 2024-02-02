@@ -7,6 +7,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.defaults.EffectiveButtonDefaults
@@ -30,7 +31,8 @@ fun EffectiveSingleLineButton(
         Text(
             modifier = Modifier.padding(vertical = 8.dp),
             style = EffectiveTheme.typography.buttonText2,
-            text = text
+            text = text,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikhail.effectivemobiletestquest.R
 import com.mikhail.effectivemobiletestquest.presentation.ui.exstensions.runIf
@@ -24,7 +25,7 @@ import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 @Composable
 fun EffectiveCatalogTag(
     tag: Tag,
-    onTagClick: (Tag) -> Unit,
+    onTagClick: () -> Unit,
     onDisableTagClick: () -> Unit,
     modifier: Modifier = Modifier,
     isActive: Boolean = false
@@ -44,7 +45,7 @@ fun EffectiveCatalogTag(
                 )
             }
             .clip(CircleShape)
-            .clickable { onTagClick(tag) }
+            .clickable { onTagClick() }
             .animateContentSize(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -70,7 +71,8 @@ fun EffectiveCatalogTag(
                 EffectiveTheme.color.white
             } else {
                 EffectiveTheme.color.grey
-            }
+            },
+            overflow = TextOverflow.Ellipsis
         )
         AnimatedVisibility(visible = isActive) {
             Icon(

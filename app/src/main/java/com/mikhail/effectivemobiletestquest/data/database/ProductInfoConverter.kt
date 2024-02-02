@@ -5,7 +5,7 @@ import com.mikhail.effectivemobiletestquest.data.database.models.ProductInfoMode
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class Converters {
+class ProductInfoConverter {
    @TypeConverter
    fun fromList(value : List<ProductInfoModel>) = Json.encodeToString(value)
 

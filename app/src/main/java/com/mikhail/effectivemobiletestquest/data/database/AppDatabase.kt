@@ -7,10 +7,11 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.mikhail.effectivemobiletestquest.data.database.dao.ProductsDao
 import com.mikhail.effectivemobiletestquest.data.database.dao.RegistrationDao
+import com.mikhail.effectivemobiletestquest.data.database.models.ProductModel
 import com.mikhail.effectivemobiletestquest.data.database.models.RegistrationModel
 
-@TypeConverters(Converters::class)
-@Database(entities = [RegistrationModel::class], version = 1, exportSchema = false)
+@TypeConverters(ProductInfoConverter::class, StringConverter::class)
+@Database(entities = [RegistrationModel::class, ProductModel::class], version = 2, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun registrationDao(): RegistrationDao
     abstract fun productsDao(): ProductsDao
