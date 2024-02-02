@@ -1,4 +1,4 @@
-package com.mikhail.effectivemobiletestquest.data.models
+package com.mikhail.effectivemobiletestquest.data.network.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
