@@ -6,6 +6,7 @@ import com.mikhail.effectivemobiletestquest.data.database.models.ProductInfoMode
 import com.mikhail.effectivemobiletestquest.data.database.models.ProductModel
 import com.mikhail.effectivemobiletestquest.data.database.models.ProductWithImagesModel
 import com.mikhail.effectivemobiletestquest.data.network.NetworkService
+import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.Tag
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -96,6 +97,19 @@ class ProductsRepository @Inject constructor(
                     productModel = product,
                     images = productsToImagesMap[product.id].orEmpty()
                 )
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
+    fun getAllProductsByTag(tag: Tag): Flow<List<ProductWithImagesModel>> {
+        return database.productsDao().getProductsDataByTag(tag.name.lowercase())
+            .map {
+                it.map { product ->
+                    ProductWithImagesModel(
+                        productModel = product,
+                        images = productsToImagesMap[product.id].orEmpty()
+                    )
+                }
             }
             .flowOn(Dispatchers.IO)
     }

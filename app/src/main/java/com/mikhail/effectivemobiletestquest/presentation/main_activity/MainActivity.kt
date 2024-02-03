@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = "product"
+                    startDestination = "catalog"
                 ) {
                     composable(route = "sign_in") {
                         SignInScreen(navController = navController)

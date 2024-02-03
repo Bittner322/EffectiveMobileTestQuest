@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -64,6 +65,12 @@ class ProductScreenViewModel @Inject constructor(
     fun onProductNonFavoriteClick(product: ProductWithImagesModel) {
         viewModelScope.launch {
             repository.setProductNonFavorite(product)
+        }
+    }
+
+    fun onHideOrOpenDescriptionClick() {
+        _uiState.update {
+            it.copy(isDescriptionVisible = !_uiState.value.isDescriptionVisible)
         }
     }
 }

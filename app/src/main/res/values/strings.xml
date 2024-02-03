@@ -33,5 +33,9 @@
     <string name="product_available_for_order">Доступно для заказа</string>
     <string name="product_units">штук</string>
     <string name="product_count_of_feedbacks">отзывов</string>
+    <string name="product_description_title">Описание</string>
+    <string name="product_hide_description">Скрыть</string>
+    <string name="product_open_description">Подробнее</string>
+    <string name="product_characteristics_title">Характеристики</string>
 
 </resources>

@@ -96,7 +96,7 @@ fun CatalogScreen(
                 EffectiveCatalogTag(
                     tag = tag,
                     onTagClick = { viewModel.onActiveTagChange(tag) },
-                    onDisableTagClick = viewModel::onDisableTagClick,
+                    onDisableTagClick = { viewModel.onDisableTagClick() },
                     isActive = uiState.activeTag == tag
                 )
             }

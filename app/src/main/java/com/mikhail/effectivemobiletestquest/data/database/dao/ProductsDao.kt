@@ -29,6 +29,9 @@ interface ProductsDao {
     @Query("SELECT * FROM ProductModel")
     fun getProductsData(): Flow<List<ProductModel>>
 
+    @Query("SELECT * FROM ProductModel WHERE tags LIKE '%' || :tag || '%'")
+    fun getProductsDataByTag(tag: String): Flow<List<ProductModel>>
+
     @Query("UPDATE ProductModel SET isFavorite = 1 WHERE id = (:id)")
     fun setProductFavorite(id: String)
 

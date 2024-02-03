@@ -1,5 +1,6 @@
 package com.mikhail.effectivemobiletestquest.presentation.screens.product
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,6 +19,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -36,6 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikhail.effectivemobiletestquest.R
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
+import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveClickableMenuItem
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveDiscount
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectivePagerIndicator
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.ProductScreenTopBar
@@ -208,6 +211,63 @@ fun ProductScreen(
                     discount = product.productModel.discount
                 )
             }
+
+            Text(
+                modifier = Modifier.padding(top = 24.dp),
+                text = stringResource(R.string.product_description_title),
+                style = EffectiveTheme.typography.title1,
+                color = EffectiveTheme.color.black,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            AnimatedVisibility(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .fillMaxWidth(),
+                visible = uiState.isDescriptionVisible
+            ) {
+                Column {
+                    EffectiveClickableMenuItem(
+                        mainText = product.productModel.productName,
+                        endIcon = R.drawable.ic_arrow_right
+                    )
+                    Text(
+                        modifier = Modifier.padding(top = 8.dp),
+                        text = product.productModel.description,
+                        style = EffectiveTheme.typography.text1,
+                        color = EffectiveTheme.color.darkGrey,
+                        maxLines = 6,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            }
+
+            Text(
+                modifier = Modifier
+                    .padding(top = 10.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable { viewModel.onHideOrOpenDescriptionClick() }
+                    .padding(4.dp),
+                text = if (uiState.isDescriptionVisible) {
+                    stringResource(R.string.product_hide_description)
+                } else {
+                    stringResource(R.string.product_open_description)
+                },
+                style = EffectiveTheme.typography.buttonText1,
+                color = EffectiveTheme.color.grey,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Text(
+                modifier = Modifier.padding(top = 34.dp),
+                text = stringResource(R.string.product_characteristics_title),
+                style = EffectiveTheme.typography.title1,
+                color = EffectiveTheme.color.black,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
     }
 }

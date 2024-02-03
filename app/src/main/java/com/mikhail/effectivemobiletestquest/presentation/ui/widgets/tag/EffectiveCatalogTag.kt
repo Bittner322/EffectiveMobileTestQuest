@@ -65,7 +65,7 @@ fun EffectiveCatalogTag(
                         bottom = 6.dp
                     )
                 },
-            text = stringResource(tag.tag),
+            text = stringResource(tag.stringResourceOfTag),
             style = EffectiveTheme.typography.title4,
             color = if (isActive) {
                 EffectiveTheme.color.white

@@ -44,6 +44,14 @@ class CatalogScreenViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
+    private fun getAllProductsByTag() {
+        repository.getAllProductsByTag(tag = _uiState.value.activeTag)
+            .onEach {
+                _productsFlow.value = it
+            }
+            .launchIn(viewModelScope)
+    }
+
     fun onSortTypeChange(sortType: SortType) {
         _uiState.update {
             it.copy(sortType = sortType)
@@ -54,12 +62,18 @@ class CatalogScreenViewModel @Inject constructor(
         _uiState.update {
             it.copy(activeTag = tag)
         }
+        if (tag == Tag.ALL) {
+            getAllProducts()
+        } else {
+            getAllProductsByTag()
+        }
     }
 
     fun onDisableTagClick() {
         _uiState.update {
             it.copy(activeTag = Tag.ALL)
         }
+        getAllProducts()
     }
 
     fun onProductFavoriteClick(product: ProductWithImagesModel) {
