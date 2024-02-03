@@ -104,15 +104,17 @@ fun CatalogScreen(
         
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(16.dp)
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(products) {
                 Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     ProductCard(
                         product = it,
+                        onProductCardClick = {  },
                         onFavoriteClick = { viewModel.onProductFavoriteClick(it) },
                         onNonFavoriteClick = { viewModel.onProductNonFavoriteClick(it) }
                     )

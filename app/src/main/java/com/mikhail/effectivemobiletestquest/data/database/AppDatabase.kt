@@ -11,7 +11,7 @@ import com.mikhail.effectivemobiletestquest.data.database.models.ProductModel
 import com.mikhail.effectivemobiletestquest.data.database.models.RegistrationModel
 
 @TypeConverters(ProductInfoConverter::class, StringConverter::class)
-@Database(entities = [RegistrationModel::class, ProductModel::class], version = 2, exportSchema = false)
+@Database(entities = [RegistrationModel::class, ProductModel::class], version = 4, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun registrationDao(): RegistrationDao
     abstract fun productsDao(): ProductsDao

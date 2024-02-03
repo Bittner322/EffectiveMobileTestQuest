@@ -2,7 +2,7 @@ package com.mikhail.effectivemobiletestquest.presentation.screens.catalog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mikhail.effectivemobiletestquest.data.database.models.ProductModel
+import com.mikhail.effectivemobiletestquest.data.database.models.ProductWithImagesModel
 import com.mikhail.effectivemobiletestquest.data.repositories.ProductsRepository
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.dropdown.SortType
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.Tag
@@ -22,7 +22,7 @@ class CatalogScreenViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(CatalogScreenUiState.default)
     val uiState = _uiState.asStateFlow()
 
-    private val _productsFlow = MutableStateFlow(emptyList<ProductModel>())
+    private val _productsFlow = MutableStateFlow(emptyList<ProductWithImagesModel>())
     val productsFlow = _productsFlow.asStateFlow()
 
     init {
@@ -62,13 +62,13 @@ class CatalogScreenViewModel @Inject constructor(
         }
     }
 
-    fun onProductFavoriteClick(product: ProductModel) {
+    fun onProductFavoriteClick(product: ProductWithImagesModel) {
         viewModelScope.launch {
             repository.setProductFavorite(product)
         }
     }
 
-    fun onProductNonFavoriteClick(product: ProductModel) {
+    fun onProductNonFavoriteClick(product: ProductWithImagesModel) {
         viewModelScope.launch {
             repository.setProductNonFavorite(product)
         }
