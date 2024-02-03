@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -26,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikhail.effectivemobiletestquest.R
 import com.mikhail.effectivemobiletestquest.data.database.models.ProductWithImagesModel
+import com.mikhail.effectivemobiletestquest.presentation.ui.exstensions.noRippleClickable
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 
 private const val DescriptionMaxLinesCount = 3
@@ -50,7 +53,7 @@ fun ProductCard(
                 shape = RoundedCornerShape(8.dp)
             )
             .clip(RoundedCornerShape(8.dp))
-            .clickable { onProductCardClick() }
+            .noRippleClickable { onProductCardClick() }
     ) {
         Icon(
             modifier = Modifier
@@ -84,12 +87,19 @@ fun ProductCard(
             state = pagerState
         ) { page ->
             Image(
+                modifier = Modifier
+                    .heightIn(min = 144.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally),
                 painter = painterResource(product.images[page]),
                 contentDescription = null
             )
         }
 
-        EffectivePagerIndicator(pagerState = pagerState)
+        EffectivePagerIndicator(
+            pagerState = pagerState,
+            dotSize = 4.dp
+        )
 
         Text(
             modifier = Modifier

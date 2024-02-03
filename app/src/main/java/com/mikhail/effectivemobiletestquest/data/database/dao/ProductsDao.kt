@@ -23,6 +23,9 @@ interface ProductsDao {
     @Delete
     suspend fun delete(productModel: ProductModel)
 
+    @Query("SELECT * FROM ProductModel WHERE id = (:id)")
+    fun getProductFlow(id: String): Flow<ProductModel>
+
     @Query("SELECT * FROM ProductModel")
     fun getProductsData(): Flow<List<ProductModel>>
 

@@ -81,6 +81,7 @@ dependencies {
     annotationProcessor(libs.room.compiler)
     ksp(libs.room.compiler)
     implementation(libs.ksp)
+    implementation(libs.rating.bar)
     debugImplementation(libs.compose.tooling.preview)
     debugImplementation(libs.compose.test.manifest)
 }

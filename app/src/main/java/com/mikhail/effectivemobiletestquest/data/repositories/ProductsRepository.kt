@@ -18,7 +18,14 @@ class ProductsRepository @Inject constructor(
     private val database: AppDatabase
 ) {
     private val productsToImagesMap = mapOf(
-        "cbf0c984-7c6c-4ada-82da-e29dc698bb50" to listOf(R.drawable.razor, R.drawable.mask)
+        "cbf0c984-7c6c-4ada-82da-e29dc698bb50" to listOf(R.drawable.razor, R.drawable.cream),
+        "54a876a5-2205-48ba-9498-cfecff4baa6e" to listOf(R.drawable.soap, R.drawable.lotion),
+        "75c84407-52e1-4cce-a73a-ff2d3ac031b3" to listOf(R.drawable.cream, R.drawable.razor),
+        "16f88865-ae74-4b7c-9d85-b68334bb97db" to listOf(R.drawable.oil_paper, R.drawable.mask),
+        "26f88856-ae74-4b7c-9d85-b68334bb97db" to listOf(R.drawable.lotion, R.drawable.oil_paper),
+        "15f88865-ae74-4b7c-9d81-b78334bb97db" to listOf(R.drawable.razor, R.drawable.soap),
+        "88f88865-ae74-4b7c-9d81-b78334bb97db" to listOf(R.drawable.mask, R.drawable.oil_paper),
+        "55f58865-ae74-4b7c-9d81-b78334bb97db" to listOf(R.drawable.soap, R.drawable.cream)
     )
 
     private suspend fun mapProducts(): List<ProductModel> {
@@ -78,6 +85,19 @@ class ProductsRepository @Inject constructor(
         withContext(Dispatchers.IO) {
             database.productsDao().setProductNonFavorite(productModel.productModel.id)
         }
+    }
+
+    fun getProductFlow(
+        productModel: ProductWithImagesModel
+    ): Flow<ProductWithImagesModel> {
+        return database.productsDao().getProductFlow(productModel.productModel.id)
+            .map { product ->
+                ProductWithImagesModel(
+                    productModel = product,
+                    images = productsToImagesMap[product.id].orEmpty()
+                )
+            }
+            .flowOn(Dispatchers.IO)
     }
 
     suspend fun clearProducts() {

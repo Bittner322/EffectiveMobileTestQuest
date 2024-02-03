@@ -14,12 +14,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EffectivePagerIndicator(
+    dotSize: Dp,
     pagerState: PagerState,
     modifier: Modifier = Modifier
 ) {
@@ -40,7 +42,7 @@ fun EffectivePagerIndicator(
                     .padding(2.dp)
                     .clip(CircleShape)
                     .background(color)
-                    .size(4.dp)
+                    .size(dotSize)
             )
         }
     }

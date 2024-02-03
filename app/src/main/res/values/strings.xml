@@ -29,4 +29,9 @@
     <string name="catalog_tan_tag">Загар</string>
     <string name="catalog_masks_tag">Маски</string>
 
+    <!-- Product screen -->
+    <string name="product_available_for_order">Доступно для заказа</string>
+    <string name="product_units">штук</string>
+    <string name="product_count_of_feedbacks">отзывов</string>
+
 </resources>
