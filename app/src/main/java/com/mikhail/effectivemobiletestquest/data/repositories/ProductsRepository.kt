@@ -90,9 +90,9 @@ class ProductsRepository @Inject constructor(
     }
 
     fun getProductFlow(
-        productModel: ProductWithImagesModel
+        productModelId: String
     ): Flow<ProductWithImagesModel> {
-        return database.productsDao().getProductFlow(productModel.productModel.id)
+        return database.productsDao().getProductFlow(productModelId)
             .map { product ->
                 ProductWithImagesModel(
                     productModel = product,

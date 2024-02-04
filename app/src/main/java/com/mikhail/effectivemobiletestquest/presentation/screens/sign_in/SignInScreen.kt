@@ -36,7 +36,7 @@ import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveTex
 private const val Mask = "+ # ###-###-##-##"
 private const val PhoneLength = 11
 
-private const val CatalogScreenRoute = "catalog"
+private const val CatalogScreenRoute = "bottomNav"
 
 @Composable
 fun SignInScreen(

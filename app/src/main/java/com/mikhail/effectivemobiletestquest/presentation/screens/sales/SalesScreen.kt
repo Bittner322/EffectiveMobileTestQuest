@@ -1,4 +1,4 @@
-package com.mikhail.effectivemobiletestquest.presentation.screens.cart
+package com.mikhail.effectivemobiletestquest.presentation.screens.sales
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 
 @Composable
-fun CartScreen() {
+fun SalesScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -4,7 +4,7 @@ private const val HomeScreenRoute = "home"
 private const val CatalogScreenRoute = "catalog"
 private const val CartScreenRoute = "cart"
 private const val SalesScreenRoute = "sales"
-private const val ProfilesScreenRoute = "profiles"
+private const val ProfilesScreenRoute = "profile"
 
 sealed class BottomNavScreens(val route: String) {
     data object Home: BottomNavScreens(route = HomeScreenRoute)

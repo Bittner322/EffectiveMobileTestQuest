@@ -35,6 +35,8 @@ import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.dropdown.Eff
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.EffectiveCatalogTag
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.Tag
 
+private const val ProductScreenRoute = "product"
+
 @Composable
 fun CatalogScreen(
     navController: NavController,
@@ -101,7 +103,7 @@ fun CatalogScreen(
                 )
             }
         }
-        
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(16.dp),
@@ -114,7 +116,7 @@ fun CatalogScreen(
                 ) {
                     ProductCard(
                         product = it,
-                        onProductCardClick = {  },
+                        onProductCardClick = { viewModel.onProductClick() },
                         onFavoriteClick = { viewModel.onProductFavoriteClick(it) },
                         onNonFavoriteClick = { viewModel.onProductNonFavoriteClick(it) }
                     )

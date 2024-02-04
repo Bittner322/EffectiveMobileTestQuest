@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikhail.effectivemobiletestquest.data.database.models.ProductWithImagesModel
 import com.mikhail.effectivemobiletestquest.data.repositories.ProductsRepository
+import com.mikhail.effectivemobiletestquest.di.annotations.ProductId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,17 +16,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductScreenViewModel @Inject constructor(
-    productModel: ProductWithImagesModel,
+    @ProductId productId: String,
     private val repository: ProductsRepository
 ): ViewModel() {
     private val _uiState = MutableStateFlow(ProductScreenUiState.default)
     val uiState = _uiState.asStateFlow()
 
-    val product = repository.getProductFlow(productModel = productModel)
+    val product = repository.getProductFlow(productModelId = productId)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,
-            initialValue = productModel
+            initialValue = ProductWithImagesModel.default
         )
 
     fun onProductFavoriteClick(product: ProductWithImagesModel) {

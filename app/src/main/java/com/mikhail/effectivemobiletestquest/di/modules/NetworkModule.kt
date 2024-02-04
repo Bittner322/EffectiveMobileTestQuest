@@ -1,4 +1,4 @@
-package com.mikhail.effectivemobiletestquest.di
+package com.mikhail.effectivemobiletestquest.di.modules
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.mikhail.effectivemobiletestquest.data.network.NetworkService

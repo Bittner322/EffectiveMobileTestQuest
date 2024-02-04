@@ -4,14 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikhail.effectivemobiletestquest.data.database.models.ProductWithImagesModel
 import com.mikhail.effectivemobiletestquest.data.repositories.ProductsRepository
+import com.mikhail.effectivemobiletestquest.di.annotations.ProductId
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.dropdown.SortType
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.Tag
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -21,6 +24,9 @@ import javax.inject.Inject
 class CatalogScreenViewModel @Inject constructor(
     private val repository: ProductsRepository
 ) : ViewModel() {
+    private val _uiAction = Channel<CatalogAction>()
+    val uiAction = _uiAction.receiveAsFlow()
+
     private val _uiState = MutableStateFlow(CatalogScreenUiState.default)
     val uiState = _uiState.asStateFlow()
 
@@ -129,4 +135,12 @@ class CatalogScreenViewModel @Inject constructor(
             }
             .launchIn(viewModelScope)
     }
+
+    fun onProductClick() {
+        _uiAction.trySend(CatalogAction.NavToProduct)
+    }
+}
+
+sealed class CatalogAction {
+    data object NavToProduct: CatalogAction()
 }

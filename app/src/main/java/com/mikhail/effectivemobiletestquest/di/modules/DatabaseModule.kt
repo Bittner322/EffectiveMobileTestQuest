@@ -1,4 +1,4 @@
-package com.mikhail.effectivemobiletestquest.di
+package com.mikhail.effectivemobiletestquest.di.modules
 
 import com.mikhail.effectivemobiletestquest.data.database.AppDatabase
 import dagger.Module

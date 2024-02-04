@@ -15,18 +15,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.defaults.EffectiveBottomNavDefaults
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(
+    navController: NavController
+) {
     var navigationSelectedItem by remember {
         mutableIntStateOf(0)
     }
 
-    val navController = rememberNavController()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {

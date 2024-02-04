@@ -39,4 +39,25 @@ data class ProductModel(
     val isFavorite: Boolean,
     @ColumnInfo(name = "priceWithDiscountConvertedToInt")
     val priceWithDiscountConvertedToInt: Int
-)
+) {
+    companion object {
+        val default = ProductModel(
+            id = "",
+            productName = "",
+            subtitle = "",
+            tags = emptyList(),
+            available = 0,
+            description = "",
+            ingredients = "",
+            price = "",
+            discount = 0,
+            priceWithDiscount = "",
+            unit = "",
+            countOfFeedbacks = 0,
+            rating = 0.0,
+            info = emptyList(),
+            isFavorite = false,
+            priceWithDiscountConvertedToInt = 0,
+        )
+    }
+}
