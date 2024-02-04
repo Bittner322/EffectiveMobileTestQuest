@@ -26,6 +26,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,11 +41,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikhail.effectivemobiletestquest.R
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
+import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveCharacteristics
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveClickableMenuItem
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveDiscount
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectivePagerIndicator
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.ProductScreenTopBar
 import com.smarttoolfactory.ratingbar.RatingBar
+
+private const val MaxLinesInIngredientsIfNotExpanded = 2
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -268,6 +274,101 @@ fun ProductScreen(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
+
+            Spacer(modifier = Modifier.padding(top = 16.dp))
+
+            product.productModel.info.forEach { info ->
+                EffectiveCharacteristics(info = info)
+            }
+
+            Row(
+                modifier = Modifier.padding(top = 34.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.product_compound_title),
+                    style = EffectiveTheme.typography.title1,
+                    color = EffectiveTheme.color.black,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Icon(
+                    painter = painterResource(R.drawable.ic_copy),
+                    contentDescription = null,
+                    tint = EffectiveTheme.color.grey
+                )
+            }
+
+            var isIngredientsExpanded by remember { mutableStateOf(false) }
+
+            Text(
+                modifier = Modifier.padding(top = 16.dp),
+                text = product.productModel.ingredients,
+                style = EffectiveTheme.typography.text1,
+                color = EffectiveTheme.color.darkGrey,
+                maxLines = if (isIngredientsExpanded) {
+                    Int.MAX_VALUE
+                } else {
+                    MaxLinesInIngredientsIfNotExpanded
+                },
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Text(
+                modifier = Modifier
+                    .padding(top = 10.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable { isIngredientsExpanded = !isIngredientsExpanded }
+                    .padding(4.dp),
+                text = stringResource(R.string.product_open_description),
+                style = EffectiveTheme.typography.buttonText1,
+                color = EffectiveTheme.color.grey,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Row(
+                modifier = Modifier
+                    .padding(
+                        top = 32.dp,
+                        bottom = 8.dp
+                    )
+                    .fillMaxWidth()
+                    .background(
+                        color = EffectiveTheme.color.pink,
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable {  }
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "${product.productModel.priceWithDiscount}${product.productModel.unit}",
+                    style = EffectiveTheme.typography.buttonText2,
+                    color = EffectiveTheme.color.white,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    modifier = Modifier.padding(start = 10.dp),
+                    text = "${product.productModel.price}${product.productModel.unit}",
+                    style = EffectiveTheme.typography.caption1,
+                    color = EffectiveTheme.color.lightPink,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textDecoration = TextDecoration.LineThrough
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = stringResource(R.string.product_add_to_cart),
+                    style = EffectiveTheme.typography.buttonText2,
+                    color = EffectiveTheme.color.white,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
     }
 }

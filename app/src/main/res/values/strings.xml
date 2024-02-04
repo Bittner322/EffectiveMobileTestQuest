@@ -37,5 +37,7 @@
     <string name="product_hide_description">Скрыть</string>
     <string name="product_open_description">Подробнее</string>
     <string name="product_characteristics_title">Характеристики</string>
+    <string name="product_compound_title">Состав</string>
+    <string name="product_add_to_cart">Добавить в корзину</string>
 
 </resources>
