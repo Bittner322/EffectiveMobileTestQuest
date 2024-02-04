@@ -24,7 +24,7 @@ interface RegistrationDao {
     suspend fun delete(registrationModel: RegistrationModel)
 
     @Query("SELECT * FROM RegistrationModel")
-    fun getRegistrationData(): Flow<List<RegistrationModel>>
+    fun getRegistrationData(): Flow<RegistrationModel>
 
     @Query("DELETE FROM RegistrationModel")
     fun clearRegistrationData()

@@ -114,6 +114,11 @@ class ProductsRepository @Inject constructor(
             .flowOn(Dispatchers.IO)
     }
 
+    fun getFavoritesCount(): Flow<Int> {
+        return database.productsDao().getFavoritesCount()
+            .flowOn(Dispatchers.IO)
+    }
+
     suspend fun clearProducts() {
         withContext(Dispatchers.IO) {
             database.productsDao().clearProductsData()

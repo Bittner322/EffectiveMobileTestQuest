@@ -38,6 +38,9 @@ interface ProductsDao {
     @Query("UPDATE ProductModel SET isFavorite = 0 WHERE id = (:id)")
     fun setProductNonFavorite(id: String)
 
+    @Query("SELECT COUNT(isFavorite) FROM ProductModel")
+    fun getFavoritesCount(): Flow<Int>
+
     @Query("DELETE FROM ProductModel")
     fun clearProductsData()
 }

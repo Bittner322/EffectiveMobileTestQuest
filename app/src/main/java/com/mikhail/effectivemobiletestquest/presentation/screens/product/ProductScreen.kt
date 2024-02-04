@@ -236,7 +236,8 @@ fun ProductScreen(
                 Column {
                     EffectiveClickableMenuItem(
                         mainText = product.productModel.productName,
-                        endIcon = R.drawable.ic_arrow_right
+                        endIcon = R.drawable.ic_arrow_right,
+                        endIconTint = EffectiveTheme.color.black
                     )
                     Text(
                         modifier = Modifier.padding(top = 8.dp),

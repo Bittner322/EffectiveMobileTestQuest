@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.rememberNavController
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
+import com.mikhail.effectivemobiletestquest.presentation.ui.theme.defaults.EffectiveBottomNavDefaults
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -48,7 +49,9 @@ fun BottomNavigationBar() {
                         onClick = {
                             navigationSelectedItem = index
                             navController.navigate(navigationItem.route)
-                        }
+                        },
+                        alwaysShowLabel = true,
+                        colors = EffectiveBottomNavDefaults.bottomNavDefaults()
                     )
                 }
             }

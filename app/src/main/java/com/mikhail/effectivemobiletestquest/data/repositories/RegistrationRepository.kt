@@ -3,6 +3,8 @@ package com.mikhail.effectivemobiletestquest.data.repositories
 import com.mikhail.effectivemobiletestquest.data.database.AppDatabase
 import com.mikhail.effectivemobiletestquest.data.database.models.RegistrationModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -23,6 +25,11 @@ class RegistrationRepository @Inject constructor(
                 )
             )
         }
+    }
+
+    fun getUserData(): Flow<RegistrationModel> {
+        return database.registrationDao().getRegistrationData()
+            .flowOn(Dispatchers.IO)
     }
 
     suspend fun clearRegistrationData() {

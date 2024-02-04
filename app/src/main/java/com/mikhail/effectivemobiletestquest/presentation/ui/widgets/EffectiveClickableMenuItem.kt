@@ -23,6 +23,7 @@ import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 fun EffectiveClickableMenuItem(
     mainText: String,
     endIcon: Int,
+    endIconTint: Color,
     modifier: Modifier = Modifier,
     startIcon: Int? = null,
     additionalText: String? = null,
@@ -40,16 +41,17 @@ fun EffectiveClickableMenuItem(
     ) {
         if (startIcon != null && startIconTint != null) {
             Icon(
-                modifier = Modifier.padding(end = 8.dp),
+                modifier = Modifier.padding(horizontal = 8.dp),
                 painter = painterResource(startIcon),
                 contentDescription = null,
                 tint = startIconTint
             )
         }
         if (additionalText != null) {
-            Column {
+            Column(
+                modifier = Modifier.padding(start = 8.dp)
+            ) {
                 Text(
-                    modifier = Modifier.padding(start = 8.dp),
                     text = mainText,
                     style = EffectiveTheme.typography.title2,
                     color = EffectiveTheme.color.black,
@@ -62,7 +64,7 @@ fun EffectiveClickableMenuItem(
                     style = EffectiveTheme.typography.caption1,
                     color = EffectiveTheme.color.grey,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
         } else {
@@ -79,7 +81,8 @@ fun EffectiveClickableMenuItem(
         Icon(
             modifier = Modifier.padding(end = 8.dp),
             painter = painterResource(endIcon),
-            contentDescription = null
+            contentDescription = null,
+            tint = endIconTint
         )
     }
 }
