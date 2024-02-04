@@ -51,7 +51,8 @@ class ProductsRepository @Inject constructor(
                         value = itemInfo.value
                     )
                 },
-                isFavorite = false
+                isFavorite = false,
+                priceWithDiscountConvertedToInt = item.price.priceWithDiscount.toInt()
             )
         }
         return products
@@ -116,6 +117,63 @@ class ProductsRepository @Inject constructor(
 
     fun getFavoritesCount(): Flow<Int> {
         return database.productsDao().getFavoritesCount()
+            .flowOn(Dispatchers.IO)
+    }
+
+    fun getAllFavoriteProducts(): Flow<List<ProductWithImagesModel>> {
+        return database.productsDao().getAllFavoritesProducts()
+            .map {
+                it.map { product ->
+                    ProductWithImagesModel(
+                        productModel = product,
+                        images = productsToImagesMap[product.id].orEmpty()
+                    )
+                }
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
+    fun checkIsTableEmpty(): Flow<Boolean> {
+        return database.productsDao().checkIsTableEmpty()
+            .flowOn(Dispatchers.IO)
+    }
+
+    fun getAllProductsSortedByPopularity(): Flow<List<ProductWithImagesModel>> {
+        return database.productsDao().getAllProductsSortedByPopularity()
+            .map {
+                it.map { product ->
+                    ProductWithImagesModel(
+                        productModel = product,
+                        images = productsToImagesMap[product.id].orEmpty()
+                    )
+                }
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
+    fun getAllProductsSortedByPrice(): Flow<List<ProductWithImagesModel>> {
+        return database.productsDao().getAllProductsSortedByPrice()
+            .map {
+                it.map { product ->
+                    ProductWithImagesModel(
+                        productModel = product,
+                        images = productsToImagesMap[product.id].orEmpty()
+                    )
+                }
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
+    fun getAllProductsSortedByPriceDesc(): Flow<List<ProductWithImagesModel>> {
+        return database.productsDao().getAllProductsSortedByPriceDesc()
+            .map {
+                it.map { product ->
+                    ProductWithImagesModel(
+                        productModel = product,
+                        images = productsToImagesMap[product.id].orEmpty()
+                    )
+                }
+            }
             .flowOn(Dispatchers.IO)
     }
 

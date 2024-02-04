@@ -41,6 +41,21 @@ interface ProductsDao {
     @Query("SELECT COUNT(isFavorite) FROM ProductModel")
     fun getFavoritesCount(): Flow<Int>
 
+    @Query("SELECT * FROM ProductModel WHERE isFavorite = 1")
+    fun getAllFavoritesProducts(): Flow<List<ProductModel>>
+
+    @Query("SELECT (SELECT COUNT(*) FROM ProductModel) = 0")
+    fun checkIsTableEmpty(): Flow<Boolean>
+
+    @Query("SELECT * FROM ProductModel ORDER BY rating DESC")
+    fun getAllProductsSortedByPopularity(): Flow<List<ProductModel>>
+
+    @Query("SELECT * FROM ProductModel ORDER BY priceWithDiscountConvertedToInt")
+    fun getAllProductsSortedByPrice(): Flow<List<ProductModel>>
+
+    @Query("SELECT * FROM ProductModel ORDER BY priceWithDiscountConvertedToInt DESC")
+    fun getAllProductsSortedByPriceDesc(): Flow<List<ProductModel>>
+
     @Query("DELETE FROM ProductModel")
     fun clearProductsData()
 }

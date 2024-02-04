@@ -1,4 +1,4 @@
-package com.mikhail.effectivemobiletestquest.presentation.screens.product
+package com.mikhail.effectivemobiletestquest.presentation.screens.favorites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,27 +6,30 @@ import com.mikhail.effectivemobiletestquest.data.database.models.ProductWithImag
 import com.mikhail.effectivemobiletestquest.data.repositories.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductScreenViewModel @Inject constructor(
-    productModel: ProductWithImagesModel,
+class FavoritesScreenViewModel @Inject constructor(
     private val repository: ProductsRepository
 ): ViewModel() {
-    private val _uiState = MutableStateFlow(ProductScreenUiState.default)
-    val uiState = _uiState.asStateFlow()
+    private val _productsFlow = MutableStateFlow(emptyList<ProductWithImagesModel>())
+    val productsFlow = _productsFlow.asStateFlow()
 
-    val product = repository.getProductFlow(productModel = productModel)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = productModel
-        )
+    init {
+        getAllFavoritesProducts()
+    }
+
+    private fun getAllFavoritesProducts() {
+        repository.getAllFavoriteProducts()
+            .onEach {
+                _productsFlow.value = it
+            }
+            .launchIn(viewModelScope)
+    }
 
     fun onProductFavoriteClick(product: ProductWithImagesModel) {
         viewModelScope.launch {
@@ -37,12 +40,6 @@ class ProductScreenViewModel @Inject constructor(
     fun onProductNonFavoriteClick(product: ProductWithImagesModel) {
         viewModelScope.launch {
             repository.setProductNonFavorite(product)
-        }
-    }
-
-    fun onHideOrOpenDescriptionClick() {
-        _uiState.update {
-            it.copy(isDescriptionVisible = !_uiState.value.isDescriptionVisible)
         }
     }
 }

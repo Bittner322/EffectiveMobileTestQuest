@@ -36,5 +36,7 @@ data class ProductModel(
     @ColumnInfo(name = "info")
     val info: List<ProductInfoModel>,
     @ColumnInfo(name = "isFavorite")
-    val isFavorite: Boolean
+    val isFavorite: Boolean,
+    @ColumnInfo(name = "priceWithDiscountConvertedToInt")
+    val priceWithDiscountConvertedToInt: Int
 )

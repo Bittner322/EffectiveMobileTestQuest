@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mikhail.effectivemobiletestquest.presentation.screens.catalog.CatalogScreen
+import com.mikhail.effectivemobiletestquest.presentation.screens.favorites.FavoritesScreen
 import com.mikhail.effectivemobiletestquest.presentation.screens.product.ProductScreen
 import com.mikhail.effectivemobiletestquest.presentation.screens.profile.ProfileScreen
 import com.mikhail.effectivemobiletestquest.presentation.screens.sign_in.SignInScreen
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = "profile"
+                    startDestination = "catalog"
                 ) {
                     composable(route = "sign_in") {
                         SignInScreen(navController = navController)
@@ -37,6 +38,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(route = "profile") {
                         ProfileScreen(navController = navController)
+                    }
+                    composable(route = "favorites") {
+                        FavoritesScreen(navController = navController)
                     }
                 }
             }

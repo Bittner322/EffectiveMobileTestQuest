@@ -8,9 +8,11 @@ import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.dropdown.Sor
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.Tag
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,9 +27,20 @@ class CatalogScreenViewModel @Inject constructor(
     private val _productsFlow = MutableStateFlow(emptyList<ProductWithImagesModel>())
     val productsFlow = _productsFlow.asStateFlow()
 
+    private val isProductTableEmpty = repository.checkIsTableEmpty()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Lazily,
+            initialValue = false
+        )
+
     init {
-        loadAllProducts()
-        getAllProducts()
+        if (isProductTableEmpty.value) {
+            getAllProducts()
+        } else {
+            loadAllProducts()
+            getAllProducts()
+        }
     }
 
     private fun loadAllProducts() {
@@ -37,7 +50,7 @@ class CatalogScreenViewModel @Inject constructor(
     }
 
     private fun getAllProducts() {
-        repository.getAllProductsFromDatabase()
+        repository.getAllProductsSortedByPopularity()
             .onEach {
                 _productsFlow.value = it
             }
@@ -55,6 +68,11 @@ class CatalogScreenViewModel @Inject constructor(
     fun onSortTypeChange(sortType: SortType) {
         _uiState.update {
             it.copy(sortType = sortType)
+        }
+        when (sortType) {
+            SortType.BY_POPULARITY -> onSortByPopularityClick()
+            SortType.BY_PRICE_UP -> onSortByPriceClick()
+            SortType.BY_PRICE_DOWN -> onSortByPriceDescClick()
         }
     }
 
@@ -86,5 +104,29 @@ class CatalogScreenViewModel @Inject constructor(
         viewModelScope.launch {
             repository.setProductNonFavorite(product)
         }
+    }
+
+    private fun onSortByPopularityClick() {
+        repository.getAllProductsSortedByPopularity()
+            .onEach {
+                _productsFlow.value = it
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun onSortByPriceClick() {
+        repository.getAllProductsSortedByPrice()
+            .onEach {
+                _productsFlow.value = it
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun onSortByPriceDescClick() {
+        repository.getAllProductsSortedByPriceDesc()
+            .onEach {
+                _productsFlow.value = it
+            }
+            .launchIn(viewModelScope)
     }
 }
