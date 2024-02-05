@@ -25,13 +25,16 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikhail.effectivemobiletestquest.R
+import com.mikhail.effectivemobiletestquest.presentation.main_activity.nav_graphs.Routes
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
+import com.mikhail.effectivemobiletestquest.presentation.ui.theme.bottomNavHeight
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveCenterAlignedTopBar
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveClickableMenuItem
 
 @Composable
 fun ProfileScreen(
     navController: NavController,
+    onLogout: () -> Unit,
     viewModel: ProfileScreenViewModel = hiltViewModel()
 ) {
     val userInfo by viewModel.userInfo.collectAsState()
@@ -41,7 +44,10 @@ fun ProfileScreen(
         viewModel.uiAction.collect {
             when (it) {
                 ProfileAction.NavToFavorites -> {
-                    navController.navigate("favorites")
+                    navController.navigate(Routes.favorites)
+                }
+                ProfileAction.NavToSignIn -> {
+                    onLogout()
                 }
             }
         }
@@ -53,6 +59,7 @@ fun ProfileScreen(
             .background(
                 color = EffectiveTheme.color.white
             )
+            .padding(bottom = bottomNavHeight)
             .systemBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -73,7 +80,8 @@ fun ProfileScreen(
                 endIconTint = EffectiveTheme.color.darkGrey,
                 startIcon = R.drawable.ic_profile,
                 startIconTint = EffectiveTheme.color.darkGrey,
-                additionalText = userInfo.phoneNumber
+                additionalText = userInfo.phoneNumber,
+                onEndIconClick = { viewModel.onLogoutClick() }
             )
         }
 
@@ -140,7 +148,7 @@ fun ProfileScreen(
                     shape = RoundedCornerShape(8.dp)
                 )
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { }
+                .clickable { viewModel.onLogoutClick() }
                 .padding(vertical = 16.dp)
         ) {
             Text(

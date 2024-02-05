@@ -7,21 +7,23 @@ import androidx.navigation.compose.composable
 import com.mikhail.effectivemobiletestquest.presentation.screens.sign_in.SignInScreen
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.bottom_nav.BottomNavigationBar
 
-private const val ROOT = "root_graph"
-private const val REGISTRATION = "registration_graph"
-private const val BOTTOM_NAV = "bottomNav"
-
 @Composable
-fun RootNavigationGraph(navController: NavHostController) {
+fun RootNavigationGraph(
+    navController: NavHostController,
+    isUserLogged: Boolean,
+    onLogout: () -> Unit
+) {
     NavHost(
         navController = navController,
-        startDestination = "sign_in"
+        startDestination = if (isUserLogged) Routes.bottomNav else Routes.sign_in
     ) {
-        composable(route = "sign_in") {
+        composable(route = Routes.sign_in) {
             SignInScreen(navController = navController)
         }
-        composable(route = "bottomNav") {
-            BottomNavigationBar()
+        composable(route = Routes.bottomNav) {
+            BottomNavigationBar(
+                onLogout = onLogout
+            )
         }
     }
 }

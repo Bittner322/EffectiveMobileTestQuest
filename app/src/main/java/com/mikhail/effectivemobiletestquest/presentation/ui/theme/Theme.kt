@@ -3,6 +3,7 @@ package com.mikhail.effectivemobiletestquest.presentation.ui.theme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun EffectiveTheme(
@@ -28,3 +29,5 @@ object EffectiveTheme {
         @Composable
         get() = LocalEffectiveTypography.current
 }
+
+val bottomNavHeight = 80.dp

@@ -14,7 +14,10 @@ import com.mikhail.effectivemobiletestquest.presentation.screens.sales.SalesScre
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.bottom_nav.BottomNavScreens
 
 @Composable
-fun HomeNavGraph(navController: NavHostController) {
+fun HomeNavGraph(
+    navController: NavHostController,
+    onLogout: () -> Unit
+) {
     NavHost(
         navController = navController,
         startDestination = BottomNavScreens.Catalog.route
@@ -32,12 +35,15 @@ fun HomeNavGraph(navController: NavHostController) {
             SalesScreen()
         }
         composable(BottomNavScreens.Profile.route) {
-            ProfileScreen(navController = navController)
+            ProfileScreen(
+                navController = navController,
+                onLogout = onLogout
+            )
         }
-        composable(route = "product/{productId}") {
+        composable(route = "${Routes.product}/{productId}") {
             ProductScreen(navController = navController)
         }
-        composable(route = "favorites") {
+        composable(route = Routes.favorites) {
             FavoritesScreen(navController = navController)
         }
     }

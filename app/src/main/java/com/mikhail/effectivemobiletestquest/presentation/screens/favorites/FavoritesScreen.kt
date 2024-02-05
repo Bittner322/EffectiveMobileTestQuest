@@ -33,10 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikhail.effectivemobiletestquest.R
+import com.mikhail.effectivemobiletestquest.presentation.main_activity.nav_graphs.Routes
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
+import com.mikhail.effectivemobiletestquest.presentation.ui.theme.bottomNavHeight
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.defaults.EffectiveTopBarDefaults
-
-private const val ProductScreenRoute = "product"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +57,7 @@ fun FavoritesScreen(
         viewModel.uiAction.collect {
             when (it) {
                 is FavoritesAction.NavToProduct -> {
-                    navController.navigate("$ProductScreenRoute/${it.product.productModel.id}")
+                    navController.navigate("${Routes.product}/${it.product.productModel.id}")
                 }
             }
         }
@@ -67,6 +67,7 @@ fun FavoritesScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(color = EffectiveTheme.color.white)
+            .padding(bottom = bottomNavHeight)
             .systemBarsPadding()
     ) {
         TopAppBar(

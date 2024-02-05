@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -30,7 +31,8 @@ fun EffectiveClickableMenuItem(
     startIcon: Int? = null,
     additionalText: String? = null,
     startIconTint: Color? = null,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    onEndIconClick: () -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -84,7 +86,10 @@ fun EffectiveClickableMenuItem(
         }
         Spacer(modifier = Modifier.weight(1f))
         Icon(
-            modifier = Modifier.padding(end = 8.dp),
+            modifier = Modifier
+                .padding(end = 8.dp)
+                .clip(CircleShape)
+                .clickable { onEndIconClick() },
             painter = painterResource(endIcon),
             contentDescription = null,
             tint = endIconTint

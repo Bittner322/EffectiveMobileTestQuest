@@ -13,4 +13,12 @@ data class RegistrationModel(
     @PrimaryKey
     @ColumnInfo(name = "phoneNumber")
     val phoneNumber: String
-)
+) {
+    companion object {
+        val default = RegistrationModel(
+            name = "",
+            surname = "",
+            phoneNumber = ""
+        )
+    }
+}

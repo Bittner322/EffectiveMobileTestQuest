@@ -22,7 +22,9 @@ import com.mikhail.effectivemobiletestquest.presentation.ui.theme.defaults.Effec
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(
+    onLogout: () -> Unit
+) {
     var navigationSelectedItem by remember {
         mutableIntStateOf(1)
     }
@@ -32,7 +34,9 @@ fun BottomNavigationBar() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = EffectiveTheme.color.white
+            ) {
                 BottomNavigationItem().bottomNavigationItems().forEachIndexed { index, navigationItem ->
                     NavigationBarItem(
                         selected = index == navigationSelectedItem,
@@ -53,12 +57,15 @@ fun BottomNavigationBar() {
                             mainNavController.navigate(navigationItem.route)
                         },
                         alwaysShowLabel = true,
-                        colors = EffectiveBottomNavDefaults.bottomNavDefaults()
+                        colors = EffectiveBottomNavDefaults.bottomNavItemDefaults()
                     )
                 }
             }
         }
     ) { _ ->
-        HomeNavGraph(navController = mainNavController)
+        HomeNavGraph(
+            navController = mainNavController,
+            onLogout = onLogout
+        )
     }
 }

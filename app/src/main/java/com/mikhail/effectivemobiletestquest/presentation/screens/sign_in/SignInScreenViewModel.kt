@@ -92,6 +92,7 @@ class SignInScreenViewModel @Inject constructor(
                 surname = _uiState.value.surname,
                 phoneNumber = _uiState.value.phoneNumber
             )
+            registrationRepository.setIsUserLogged()
             _uiAction.send(SignInAction.NavToMainScreen)
         }
     }

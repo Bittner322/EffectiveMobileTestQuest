@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikhail.effectivemobiletestquest.R
+import com.mikhail.effectivemobiletestquest.presentation.main_activity.nav_graphs.Routes
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveCenterAlignedTopBar
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectivePlaceholder
@@ -35,8 +36,6 @@ import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveTex
 
 private const val Mask = "+ # ###-###-##-##"
 private const val PhoneLength = 11
-
-private const val CatalogScreenRoute = "bottomNav"
 
 @Composable
 fun SignInScreen(
@@ -49,7 +48,7 @@ fun SignInScreen(
         viewModel.uiAction.collect {
             when (it) {
                 SignInAction.NavToMainScreen -> {
-                    navController.navigate(CatalogScreenRoute)
+                    navController.navigate(Routes.bottomNav)
                 }
             }
         }

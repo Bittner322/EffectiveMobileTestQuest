@@ -29,14 +29,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikhail.effectivemobiletestquest.R
+import com.mikhail.effectivemobiletestquest.presentation.main_activity.nav_graphs.Routes
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
+import com.mikhail.effectivemobiletestquest.presentation.ui.theme.bottomNavHeight
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveCenterAlignedTopBar
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.ProductCard
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.dropdown.EffectiveSortDropdown
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.EffectiveCatalogTag
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.Tag
-
-private const val ProductScreenRoute = "product"
 
 @Composable
 fun CatalogScreen(
@@ -50,7 +50,7 @@ fun CatalogScreen(
         viewModel.uiAction.collect {
             when (it) {
                 is CatalogAction.NavToProduct -> {
-                    navController.navigate("$ProductScreenRoute/${it.productId}")
+                    navController.navigate("${Routes.product}/${it.productId}")
                 }
             }
         }
@@ -62,6 +62,7 @@ fun CatalogScreen(
             .background(
                 color = EffectiveTheme.color.white
             )
+            .padding(bottom = bottomNavHeight)
             .systemBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

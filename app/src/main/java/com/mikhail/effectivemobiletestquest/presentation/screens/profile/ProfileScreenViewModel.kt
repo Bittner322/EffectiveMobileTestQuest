@@ -10,12 +10,13 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileScreenViewModel @Inject constructor(
-    productsRepository: ProductsRepository,
-    registrationRepository: RegistrationRepository
+    private val productsRepository: ProductsRepository,
+    private val registrationRepository: RegistrationRepository
 ) : ViewModel() {
     private val _uiAction = Channel<ProfileAction>()
     val uiAction = _uiAction.receiveAsFlow()
@@ -24,11 +25,7 @@ class ProfileScreenViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,
-            initialValue = RegistrationModel(
-                name = "",
-                surname = "",
-                phoneNumber = ""
-            )
+            initialValue = RegistrationModel.default
         )
 
     val favoritesCount = productsRepository.getFavoritesCount()
@@ -41,9 +38,18 @@ class ProfileScreenViewModel @Inject constructor(
     fun onFavoritesClick() {
         _uiAction.trySend(ProfileAction.NavToFavorites)
     }
-}
 
+    fun onLogoutClick() {
+        viewModelScope.launch {
+            _uiAction.trySend(ProfileAction.NavToSignIn)
+            productsRepository.clearProducts()
+            registrationRepository.clearRegistrationData()
+            registrationRepository.clearSharedPrefs()
+        }
+    }
+}
 
 sealed class ProfileAction {
     data object NavToFavorites: ProfileAction()
+    data object NavToSignIn: ProfileAction()
 }
