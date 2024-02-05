@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikhail.effectivemobiletestquest.data.database.models.ProductWithImagesModel
 import com.mikhail.effectivemobiletestquest.data.repositories.ProductsRepository
-import com.mikhail.effectivemobiletestquest.di.annotations.ProductId
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.dropdown.SortType
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.tag.Tag
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -136,11 +135,11 @@ class CatalogScreenViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    fun onProductClick() {
-        _uiAction.trySend(CatalogAction.NavToProduct)
+    fun onProductClick(productId: String) {
+        _uiAction.trySend(CatalogAction.NavToProduct(productId))
     }
 }
 
 sealed class CatalogAction {
-    data object NavToProduct: CatalogAction()
+    data class NavToProduct(val productId: String): CatalogAction()
 }

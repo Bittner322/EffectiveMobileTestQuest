@@ -147,7 +147,8 @@ fun ProductCard(
             modifier = Modifier
                 .padding(
                     start = 8.dp,
-                    top = 2.dp
+                    top = 2.dp,
+                    end = 8.dp
                 ),
             text = product.productModel.description,
             style = EffectiveTheme.typography.caption1,

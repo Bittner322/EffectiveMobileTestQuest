@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -35,6 +36,16 @@ fun ProfileScreen(
 ) {
     val userInfo by viewModel.userInfo.collectAsState()
     val favoritesCount by viewModel.favoritesCount.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.uiAction.collect {
+            when (it) {
+                ProfileAction.NavToFavorites -> {
+                    navController.navigate("favorites")
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -81,7 +92,8 @@ fun ProfileScreen(
                 startIcon = R.drawable.ic_favorite_unfilled,
                 startIconTint = EffectiveTheme.color.pink,
                 additionalText = "$favoritesCount " +
-                        stringResource(R.string.profile_favorites_products)
+                        stringResource(R.string.profile_favorites_products),
+                onClick = { viewModel.onFavoritesClick() }
             )
             EffectiveClickableMenuItem(
                 mainText = stringResource(R.string.profile_shops),
@@ -128,7 +140,7 @@ fun ProfileScreen(
                     shape = RoundedCornerShape(8.dp)
                 )
                 .clip(RoundedCornerShape(8.dp))
-                .clickable {  }
+                .clickable { }
                 .padding(vertical = 16.dp)
         ) {
             Text(

@@ -1,11 +1,13 @@
 package com.mikhail.effectivemobiletestquest.presentation.screens.favorites
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -14,8 +16,8 @@ import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -32,6 +34,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikhail.effectivemobiletestquest.R
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
+import com.mikhail.effectivemobiletestquest.presentation.ui.theme.defaults.EffectiveTopBarDefaults
+
+private const val ProductScreenRoute = "product"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,6 +53,16 @@ fun FavoritesScreen(
         stringResource(id = R.string.favorites_brands_tab)
     )
 
+    LaunchedEffect(Unit) {
+        viewModel.uiAction.collect {
+            when (it) {
+                is FavoritesAction.NavToProduct -> {
+                    navController.navigate("$ProductScreenRoute/${it.product.productModel.id}")
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,7 +72,10 @@ fun FavoritesScreen(
         TopAppBar(
             navigationIcon = {
                 Icon(
-                    modifier = Modifier.padding(start = 16.dp),
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                        .clip(CircleShape)
+                        .clickable { navController.popBackStack() },
                     painter = painterResource(R.drawable.ic_arrow_left),
                     contentDescription = null,
                     tint = EffectiveTheme.color.black
@@ -73,7 +91,7 @@ fun FavoritesScreen(
                     overflow = TextOverflow.Ellipsis
                 )
             },
-            colors = TopAppBarDefaults.topAppBarColors()
+            colors = EffectiveTopBarDefaults.topBarColors()
         )
 
         TabRow(
@@ -127,7 +145,8 @@ fun FavoritesScreen(
             0 -> FavoritesTab(
                 products = products,
                 onFavoriteClick = viewModel::onProductFavoriteClick,
-                onNonFavoriteClick = viewModel::onProductNonFavoriteClick
+                onNonFavoriteClick = viewModel::onProductNonFavoriteClick,
+                onProductClick = viewModel::onProductClick
             )
             1 -> BrandsTab()
         }

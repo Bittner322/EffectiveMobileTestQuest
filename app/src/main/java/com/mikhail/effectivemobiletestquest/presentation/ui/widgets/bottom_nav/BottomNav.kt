@@ -15,19 +15,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.mikhail.effectivemobiletestquest.presentation.main_activity.nav_graphs.HomeNavGraph
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.defaults.EffectiveBottomNavDefaults
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BottomNavigationBar(
-    navController: NavController
-) {
+fun BottomNavigationBar() {
     var navigationSelectedItem by remember {
-        mutableIntStateOf(0)
+        mutableIntStateOf(1)
     }
+
+    val mainNavController = rememberNavController()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -50,7 +50,7 @@ fun BottomNavigationBar(
                         },
                         onClick = {
                             navigationSelectedItem = index
-                            navController.navigate(navigationItem.route)
+                            mainNavController.navigate(navigationItem.route)
                         },
                         alwaysShowLabel = true,
                         colors = EffectiveBottomNavDefaults.bottomNavDefaults()
@@ -59,5 +59,6 @@ fun BottomNavigationBar(
             }
         }
     ) { _ ->
+        HomeNavGraph(navController = mainNavController)
     }
 }

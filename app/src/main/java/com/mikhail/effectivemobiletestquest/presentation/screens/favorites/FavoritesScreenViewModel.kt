@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.mikhail.effectivemobiletestquest.data.database.models.ProductWithImagesModel
 import com.mikhail.effectivemobiletestquest.data.repositories.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,6 +18,9 @@ import javax.inject.Inject
 class FavoritesScreenViewModel @Inject constructor(
     private val repository: ProductsRepository
 ): ViewModel() {
+    private val _uiAction = Channel<FavoritesAction>()
+    val uiAction = _uiAction.receiveAsFlow()
+
     private val _productsFlow = MutableStateFlow(emptyList<ProductWithImagesModel>())
     val productsFlow = _productsFlow.asStateFlow()
 
@@ -42,4 +47,12 @@ class FavoritesScreenViewModel @Inject constructor(
             repository.setProductNonFavorite(product)
         }
     }
+
+    fun onProductClick(product: ProductWithImagesModel) {
+        _uiAction.trySend(FavoritesAction.NavToProduct(product))
+    }
+}
+
+sealed class FavoritesAction {
+    data class NavToProduct(val product: ProductWithImagesModel): FavoritesAction()
 }

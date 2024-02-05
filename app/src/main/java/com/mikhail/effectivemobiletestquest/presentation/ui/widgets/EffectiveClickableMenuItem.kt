@@ -1,6 +1,7 @@
 package com.mikhail.effectivemobiletestquest.presentation.ui.widgets
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -27,7 +29,8 @@ fun EffectiveClickableMenuItem(
     modifier: Modifier = Modifier,
     startIcon: Int? = null,
     additionalText: String? = null,
-    startIconTint: Color? = null
+    startIconTint: Color? = null,
+    onClick: () -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -36,7 +39,9 @@ fun EffectiveClickableMenuItem(
             .background(
                 color = EffectiveTheme.color.lightGrey,
                 shape = RoundedCornerShape(8.dp)
-            ),
+            )
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (startIcon != null && startIconTint != null) {

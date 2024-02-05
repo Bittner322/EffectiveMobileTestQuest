@@ -6,12 +6,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mikhail.effectivemobiletestquest.presentation.screens.cart.CartScreen
 import com.mikhail.effectivemobiletestquest.presentation.screens.catalog.CatalogScreen
+import com.mikhail.effectivemobiletestquest.presentation.screens.favorites.FavoritesScreen
 import com.mikhail.effectivemobiletestquest.presentation.screens.home.HomeScreen
+import com.mikhail.effectivemobiletestquest.presentation.screens.product.ProductScreen
 import com.mikhail.effectivemobiletestquest.presentation.screens.profile.ProfileScreen
 import com.mikhail.effectivemobiletestquest.presentation.screens.sales.SalesScreen
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.bottom_nav.BottomNavScreens
-
-private const val BOTTOM_NAV = "bottomNav"
 
 @Composable
 fun HomeNavGraph(navController: NavHostController) {
@@ -33,6 +33,12 @@ fun HomeNavGraph(navController: NavHostController) {
         }
         composable(BottomNavScreens.Profile.route) {
             ProfileScreen(navController = navController)
+        }
+        composable(route = "product/{productId}") {
+            ProductScreen(navController = navController)
+        }
+        composable(route = "favorites") {
+            FavoritesScreen(navController = navController)
         }
     }
 }

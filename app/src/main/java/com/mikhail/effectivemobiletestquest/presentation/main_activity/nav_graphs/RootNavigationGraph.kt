@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mikhail.effectivemobiletestquest.presentation.screens.sign_in.SignInScreen
-import com.mikhail.effectivemobiletestquest.presentation.screens.tabs_navigation_screen.TabsNavigationScreen
+import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.bottom_nav.BottomNavigationBar
 
 private const val ROOT = "root_graph"
 private const val REGISTRATION = "registration_graph"
@@ -21,7 +21,7 @@ fun RootNavigationGraph(navController: NavHostController) {
             SignInScreen(navController = navController)
         }
         composable(route = "bottomNav") {
-            TabsNavigationScreen()
+            BottomNavigationBar()
         }
     }
 }

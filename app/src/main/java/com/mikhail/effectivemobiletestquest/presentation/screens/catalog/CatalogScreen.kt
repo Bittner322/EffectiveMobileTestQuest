@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -44,6 +45,16 @@ fun CatalogScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val products by viewModel.productsFlow.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.uiAction.collect {
+            when (it) {
+                is CatalogAction.NavToProduct -> {
+                    navController.navigate("$ProductScreenRoute/${it.productId}")
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -116,7 +127,7 @@ fun CatalogScreen(
                 ) {
                     ProductCard(
                         product = it,
-                        onProductCardClick = { viewModel.onProductClick() },
+                        onProductCardClick = { viewModel.onProductClick(it.productModel.id) },
                         onFavoriteClick = { viewModel.onProductFavoriteClick(it) },
                         onNonFavoriteClick = { viewModel.onProductNonFavoriteClick(it) }
                     )

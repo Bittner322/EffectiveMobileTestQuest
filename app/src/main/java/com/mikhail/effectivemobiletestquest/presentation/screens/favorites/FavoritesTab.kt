@@ -17,6 +17,7 @@ fun FavoritesTab(
     products: List<ProductWithImagesModel>,
     onFavoriteClick: (ProductWithImagesModel) -> Unit,
     onNonFavoriteClick: (ProductWithImagesModel) -> Unit,
+    onProductClick: (ProductWithImagesModel) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -30,7 +31,7 @@ fun FavoritesTab(
             ) {
                 ProductCard(
                     product = it,
-                    onProductCardClick = {  },
+                    onProductCardClick = { onProductClick(it) },
                     onFavoriteClick = { onFavoriteClick(it) },
                     onNonFavoriteClick = { onNonFavoriteClick(it) }
                 )
