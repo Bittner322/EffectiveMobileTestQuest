@@ -57,7 +57,7 @@ fun BottomNavigationBar(
                             mainNavController.navigate(navigationItem.route)
                         },
                         alwaysShowLabel = true,
-                        colors = EffectiveBottomNavDefaults.bottomNavItemDefaults()
+                        colors = EffectiveBottomNavDefaults.bottomNavItemColors()
                     )
                 }
             }

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">EffectiveMobileTestQuest</string>
 
+    <string name="screen_stub">ЗАГЛУШКА</string>
+
     <!-- Bottom Nav -->
     <string name="bottom_nav_main">Главная</string>
     <string name="bottom_nav_catalog">Каталог</string>

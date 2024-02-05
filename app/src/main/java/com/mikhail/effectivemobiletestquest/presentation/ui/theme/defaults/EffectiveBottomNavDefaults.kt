@@ -9,8 +9,8 @@ import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
 object EffectiveBottomNavDefaults {
 
     @Composable
-    fun bottomNavItemDefaults(
-        indicatorColor: Color = Color.Transparent,
+    fun bottomNavItemColors(
+        indicatorColor: Color = EffectiveTheme.color.white,
         selectedColor: Color = EffectiveTheme.color.pink,
         unselectedColor: Color = EffectiveTheme.color.darkGrey
     ): NavigationBarItemColors {

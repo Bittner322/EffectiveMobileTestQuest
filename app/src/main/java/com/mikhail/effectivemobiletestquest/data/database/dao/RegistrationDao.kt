@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.mikhail.effectivemobiletestquest.data.database.models.RegistrationModel
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RegistrationDao {
@@ -24,7 +23,7 @@ interface RegistrationDao {
     suspend fun delete(registrationModel: RegistrationModel)
 
     @Query("SELECT * FROM RegistrationModel")
-    fun getRegistrationData(): Flow<RegistrationModel>
+    fun getRegistrationData(): RegistrationModel
 
     @Query("DELETE FROM RegistrationModel")
     fun clearRegistrationData()

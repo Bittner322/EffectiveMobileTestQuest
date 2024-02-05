@@ -7,9 +7,9 @@ import com.mikhail.effectivemobiletestquest.data.repositories.ProductsRepository
 import com.mikhail.effectivemobiletestquest.data.repositories.RegistrationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,19 +21,28 @@ class ProfileScreenViewModel @Inject constructor(
     private val _uiAction = Channel<ProfileAction>()
     val uiAction = _uiAction.receiveAsFlow()
 
-    val userInfo = registrationRepository.getUserData()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = RegistrationModel.default
-        )
+    private val _userInfoFlow = MutableStateFlow(RegistrationModel.default)
+    val userInfoFlow = _userInfoFlow.asStateFlow()
 
-    val favoritesCount = productsRepository.getFavoritesCount()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = 0
-        )
+    private val _favoritesCountFlow = MutableStateFlow(0)
+    val favoritesCountFlow = _favoritesCountFlow.asStateFlow()
+
+    init {
+        getUserInfo()
+        getFavoritesCount()
+    }
+
+    private fun getUserInfo() {
+        viewModelScope.launch {
+            _userInfoFlow.value = registrationRepository.getUserData()
+        }
+    }
+
+    private fun getFavoritesCount() {
+        viewModelScope.launch {
+            _favoritesCountFlow.value = productsRepository.getFavoritesCount()
+        }
+    }
 
     fun onFavoritesClick() {
         _uiAction.trySend(ProfileAction.NavToFavorites)

@@ -41,6 +41,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikhail.effectivemobiletestquest.R
 import com.mikhail.effectivemobiletestquest.presentation.ui.theme.EffectiveTheme
+import com.mikhail.effectivemobiletestquest.presentation.ui.theme.bottomNavHeight
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveCharacteristics
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveClickableMenuItem
 import com.mikhail.effectivemobiletestquest.presentation.ui.widgets.EffectiveDiscount
@@ -65,6 +66,7 @@ fun ProductScreen(
             .background(
                 color = EffectiveTheme.color.white
             )
+            .padding(bottom = bottomNavHeight)
             .systemBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

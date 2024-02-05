@@ -64,19 +64,6 @@ class ProductsRepository @Inject constructor(
         }
     }
 
-    fun getAllProductsFromDatabase(): Flow<List<ProductWithImagesModel>> {
-        return database.productsDao().getProductsData()
-            .map {
-                it.map { product ->
-                    ProductWithImagesModel(
-                        productModel = product,
-                        images = productsToImagesMap[product.id].orEmpty()
-                    )
-                }
-            }
-            .flowOn(Dispatchers.IO)
-    }
-
     suspend fun setProductFavorite(productModel: ProductWithImagesModel) {
         withContext(Dispatchers.IO) {
             database.productsDao().setProductFavorite(productModel.productModel.id)
@@ -115,9 +102,10 @@ class ProductsRepository @Inject constructor(
             .flowOn(Dispatchers.IO)
     }
 
-    fun getFavoritesCount(): Flow<Int> {
-        return database.productsDao().getFavoritesCount()
-            .flowOn(Dispatchers.IO)
+    suspend fun getFavoritesCount(): Int {
+        return withContext(Dispatchers.IO) {
+            database.productsDao().getFavoritesCount()
+        }
     }
 
     fun getAllFavoriteProducts(): Flow<List<ProductWithImagesModel>> {

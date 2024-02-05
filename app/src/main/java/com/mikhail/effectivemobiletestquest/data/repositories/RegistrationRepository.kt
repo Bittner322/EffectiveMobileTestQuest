@@ -4,8 +4,6 @@ import android.content.SharedPreferences
 import com.mikhail.effectivemobiletestquest.data.database.AppDatabase
 import com.mikhail.effectivemobiletestquest.data.database.models.RegistrationModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -42,9 +40,10 @@ class RegistrationRepository @Inject constructor(
         return sharedPreferences.getBoolean(isUserLoggedSharedPref, false)
     }
 
-    fun getUserData(): Flow<RegistrationModel> {
-        return database.registrationDao().getRegistrationData()
-            .flowOn(Dispatchers.IO)
+    suspend fun getUserData(): RegistrationModel {
+        return withContext(Dispatchers.IO) {
+            database.registrationDao().getRegistrationData()
+        }
     }
 
     fun clearSharedPrefs() {

@@ -37,8 +37,8 @@ fun ProfileScreen(
     onLogout: () -> Unit,
     viewModel: ProfileScreenViewModel = hiltViewModel()
 ) {
-    val userInfo by viewModel.userInfo.collectAsState()
-    val favoritesCount by viewModel.favoritesCount.collectAsState()
+    val userInfo by viewModel.userInfoFlow.collectAsState()
+    val favoritesCount by viewModel.favoritesCountFlow.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.uiAction.collect {
